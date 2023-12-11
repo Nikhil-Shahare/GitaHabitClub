@@ -7,7 +7,7 @@ import Preview from './Pages/Preview';
 export default function App() {
   return (
     <BrowserRouter>
-   <div className='app'>
+   <div className='app '>
 
     <Routes>
      <Route path='/' element={<Home/>} />

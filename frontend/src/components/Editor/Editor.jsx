@@ -20,12 +20,6 @@ const initialVal = localStorage.getItem("blog")?JSON.parse(localStorage.getItem(
 const handleSave =()=>{
     localStorage.setItem("blog",JSON.stringify(editorRef.current.getContent()))
 }
-// useEffect(() => {
-    //     const storedContent = localStorage.getItem('editorContent');
-    //     if (storedContent) {
-        //       setEditorContent(storedContent);
-        //     }
-        //   }, []);
         
         
         const handleModal =()=>setModal(prev=>!prev)
@@ -40,12 +34,12 @@ const handleSave =()=>{
    };
 
   return (
-    <div  className = "editor-container max-w-5xl  "
+    <div  className = "editor-container max-w-5xl    "
     >
-        <div className='title flex flex-col items-center w-full my-10 font-mono '>
+        <div className='title flex flex-col items-center my-1 font-mono '>
      <h1 className='flex w-24 text-4xl mb-2'>Title</h1>
-     <input type='text' className='w-full rounded h-10 shadow-md'></input>
         </div>
+     <input type='text' className='title-input  rounded h-10 mb-10 shadow-md'></input>
         <div className='shadow-md'>
 
     <Editor
@@ -54,7 +48,7 @@ const handleSave =()=>{
          init={{
              selector:"textarea",
              height:900,
-             width:1000,
+             width:768,
              plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
              tinycomments_mode: 'embedded',
@@ -69,19 +63,14 @@ const handleSave =()=>{
             }}
             initialValue={initialVal}
             />
-      <div className='flex justify-center '>
+            </div>
+      <div className='flex justify-center mt-5'>
       <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={handlepreview}>Preview</button>  
       <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={handleSave}>save</button>
       
         <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={log}>Publish</button>
       </div>
-            </div>
-      {
-        modal &&
-        <div className="overlay z-10 absolute w-full h-80vh inset-0 bg-gray-800 bg-opacity-30 backdrop-filter backdrop-blur-lg" onClick={handleModal} >
-         hare krishna
-        </div>
-      }
+      
 
 
       </div>
