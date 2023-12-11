@@ -1,12 +1,19 @@
-
-import './App.css'
-
-function App() {
+import React from 'react';
+import "./App.css"
+import EditorTab from './components/Editor/Editor';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import Home from './Pages/Home';
+import Preview from './Pages/Preview';
+export default function App() {
   return (
-    <>
-     Gita HABIT CLUB
-    </>
-  )
-}
+    <BrowserRouter>
+   <div className='app'>
 
-export default App
+    <Routes>
+     <Route path='/' element={<Home/>} />
+     <Route path='/preview' element={<Preview/>}/>  
+    </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
