@@ -73,11 +73,11 @@ const EditorTab = () => {
                     initialValue={initialVal}
                 />
             </div>
-            <div className='flex justify-center mt-5'>
-                <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={handlepreview}>Preview</button>
-                <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={handleSave}>save</button>
+            <div className='flex w-full max-w-3xl justify-between px-10  mt-5'>
+                <button className='bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={handlepreview}>Preview</button>
+                <button className=' bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={handleSave}>save</button>
 
-                <button className='bg-green-500 rounded-md px-2 w-48 mx-2 my-2 text-3xl' onClick={log}>Publish</button>
+                <button className='bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={log}>Publish</button>
             </div>
 
 
