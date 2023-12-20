@@ -1,13 +1,13 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
-import textConverter from "../utils/helpers";
+
 import {motion,AnimatePresence} from "framer-motion"
-import Blog from './Blog';
+
 import { useNavigate } from 'react-router-dom';
 import { useBlog } from '../context/BlogContext';
 const List = () => {
   const navigate = useNavigate()
-  const {handleBlogs,allBlogs,handleData,data}= useBlog()
+  const {data}= useBlog()
   const [loading, setLoading] = useState(false);
   const [selectedId,setSelectedId]=useState(null);
 

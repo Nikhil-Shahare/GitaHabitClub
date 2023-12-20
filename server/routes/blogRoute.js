@@ -5,7 +5,7 @@ const Blog = require("../models/Blog")
 
 // Middleware to handle CORS headers
 router.use((req, res, next) => {
-   res.header("Access-Control-Allow-Origin", "https://gita-habit-club-frontend.vercel.app");
+   res.header("Access-Control-Allow-Origin", "https://gitahabitclub.vercel.app");
    res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    next();

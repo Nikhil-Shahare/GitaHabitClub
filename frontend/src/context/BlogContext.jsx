@@ -17,7 +17,7 @@ const BlogProvider = ({ children }) => {
       
   
     if(allBlogs.length===0){
-      const res = await axios.get("http://localhost:4000/api/v1/getallblogs");
+      const res = await axios.get("https://gita-habit-club-backend.onrender.com/api/v1/getallblogs");
       setAllBlogs(res.data.response);
     
       await handleData(res.data.response);

@@ -25,13 +25,11 @@ const navigate =useNavigate()
 const handleClick =()=>navigate("/list")
 
 const handleUpdate =async()=>{
-  // const response = await axios.put(`http://localhost:4000/api/v1/getblog/${id}`)
-  // updateBlog(response)
 navigate(`/update/${id}`)
 }
 
 const handleDelete = async()=>{
-  const response = await axios.put(`http://localhost:4000/api/v1/getblog/${id}`)
+  const response = await axios.put(`https://gita-habit-club-backend.onrender.com/api/v1/getblog/${id}`)
   
   deleteBlog(response.data)
   closeModal()

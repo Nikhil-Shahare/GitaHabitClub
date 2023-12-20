@@ -26,7 +26,7 @@ const EditorTab = () => {
          handleSave();
          const blog = JSON.parse(localStorage.getItem("blog"))
          const header = JSON.parse(localStorage.getItem("title"))
-         const response = await axios.post("http://localhost:4000/api/v1/createblog",{title:header,description:blog})
+         const response = await axios.post("https://gita-habit-club-backend.onrender.com/api/v1/createblog",{title:header,description:blog})
          
          
     }

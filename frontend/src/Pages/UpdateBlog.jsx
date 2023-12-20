@@ -48,7 +48,7 @@ const UpdateBlog = () => {
          handleSave();
          const blog = JSON.parse(localStorage.getItem(id))
          const header = JSON.parse(localStorage.getItem(`${id} title`))
-         const response = await axios.put(`http://localhost:4000/api/v1/getblog/${id}`,{title:header,description:blog,createdAt:Date.now()})
+         const response = await axios.put(`https://gita-habit-club-backend.onrender.com/api/v1/getblog/${id}`,{title:header,description:blog,createdAt:Date.now()})
         
          updateBlog(response.data)
          navigate("/list")
