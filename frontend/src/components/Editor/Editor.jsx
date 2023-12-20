@@ -1,17 +1,44 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import "./Editor.css"
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
+import { useBlog } from '../../context/BlogContext';
 const EditorTab = () => {
     const navigate = useNavigate() 
      
-    const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
     const [storage, setStorage] = useState(title)
 
-    const initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
+    const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
 
-    const handlepreview = async () => {
+    const initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
+     const {updateBlog} = useBlog()
+
+     const [isOpen, setIsOpen] = React.useState(false);
+
+     function openModal() {
+       setIsOpen(true);
+     }
+   
+     
+   
+     function closeModal() {
+       setIsOpen(false);
+     }
+
+
+
+
+   useEffect(()=>{
+     title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
+
+     initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
+   },[title,initialVal])
+   
+   
+   
+   
+     const handlepreview = async () => {
         handleSave()
         navigate("/preview")
          
@@ -22,13 +49,21 @@ const EditorTab = () => {
         localStorage.setItem("title", JSON.stringify(storage))
     }
 
+    const handleReset = () => {
+        localStorage.removeItem("blog")
+        localStorage.removeItem("title")
+    }
+
+
+
     const handlePublish = async()=>{
          handleSave();
          const blog = JSON.parse(localStorage.getItem("blog"))
          const header = JSON.parse(localStorage.getItem("title"))
          const response = await axios.post("https://gita-habit-club-backend.onrender.com/api/v1/createblog",{title:header,description:blog})
-         
-         
+         updateBlog(response.data)
+         handleReset()
+         navigate("/list")
     }
 
     const handleChange = (e) => setStorage(e.target.value)
@@ -39,6 +74,45 @@ const EditorTab = () => {
     return (
         <div className="editor-container max-w-5xl    "
         >
+
+{isOpen && (
+        <div className="fixed inset-0 overflow-y-auto z-20">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div className="fixed inset-0 transition-opacity" onClick={closeModal}>
+              <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
+            
+            <div
+              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-headline"
+            >
+              
+              <div className="mt-4 justify-between flex flex-col px-20 py-5">
+                <h1 className='text-2xl'>are you sure you want to reset</h1>
+                <button
+                  onClick={closeModal}
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mt-3"
+                >
+                  Close
+                </button>
+
+                <button
+                  onClick={handleReset}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-3"
+                >
+                  reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
             <div className='title flex flex-col items-center my-1 font-mono '>
                 <h1 className='flex w-24 text-4xl mb-2'>Title</h1>
             </div>
@@ -73,10 +147,16 @@ const EditorTab = () => {
                 />
             </div>
             <div className='flex w-full max-w-3xl justify-between px-10  mt-5'>
+            <div>
+
                 <button className='bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={handlepreview}>Preview</button>
                 <button className=' bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={handleSave}>save</button>
-
                 <button className='bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-8 border border-green-500 hover:border-transparent rounded' onClick={handlePublish}>Publish</button>
+            </div>
+            
+            <button className='bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-8 border border-red-500 hover:border-transparent rounded' onClick={openModal}>Reset</button>
+            
+            
             </div>
 
 
