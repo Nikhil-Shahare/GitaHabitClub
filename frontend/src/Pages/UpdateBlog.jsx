@@ -7,7 +7,7 @@ import { useBlog } from '../context/BlogContext';
 const UpdateBlog = () => {
  const {id}= useParams()
  const {getSingleBlog,allBlogs,updateBlog}=useBlog();
- console.log("i am updateblog id",id)
+
 
  const blog = getSingleBlog(id)
      

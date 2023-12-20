@@ -7,7 +7,15 @@ const {PORT} = process.env
 //connection to database
 connector();
 
-
+//cors configuration
+const cors = require("cors")
+const corsOptions = {
+    origin: ['http://localhost:5173', 'https://gita-habit-club-frontend-nikhil-shahare.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, 
+    optionsSuccessStatus: 204, 
+};
+app.use(cors(corsOptions));
 
 app.get("/",(req,res)=>{
     res.send("Hare Krishna")

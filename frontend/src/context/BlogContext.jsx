@@ -48,11 +48,10 @@ const handleData = async(value)=>{
 
 
 const updateBlog = (data) => {
-  console.log("iam data.id",data._id)
+
    const updatedBlogs = allBlogs.map((blog)=>{
-    console.log("i am blog.id", blog._id )
+    
     if(data._id===blog._id){
-      console.log(`i compared ${data._id} with blog.id`)
         return{...blog,...data}
     }
     return blog;

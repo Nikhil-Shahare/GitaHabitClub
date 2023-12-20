@@ -5,7 +5,7 @@ import axios from 'axios'
 const Blog = () => {
 const {id} = useParams()
 const {getSingleBlog,updateBlog,deleteBlog,allBlogs} = useBlog();
-console.log("i am all blogs",allBlogs)
+
 const [isOpen, setIsOpen] = React.useState(false);
 
 function openModal() {
@@ -32,7 +32,7 @@ navigate(`/update/${id}`)
 
 const handleDelete = async()=>{
   const response = await axios.put(`http://localhost:4000/api/v1/getblog/${id}`)
-  console.log("i am deleted blog",response.data)
+  
   deleteBlog(response.data)
   closeModal()
   navigate("/list")

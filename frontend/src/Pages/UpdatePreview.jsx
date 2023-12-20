@@ -6,7 +6,7 @@ const {id} = useParams();
 const blogContent = JSON.parse(localStorage.getItem(id))
 const title = JSON.parse(localStorage.getItem(`${id} title`))
 const navigate =useNavigate()
-console.log("i am update preview id",id)
+
 const handleClick =()=>navigate(`/update/${id}`)
   return (
     <div className='mx-auto '>

@@ -1,42 +1,29 @@
 import React,{useEffect} from 'react';
 import "./App.css"
-import { BrowserRouter,Routes,Route, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter,Routes,Route, Navigate } from 'react-router-dom';
 import Home from './Pages/Home';
 import Preview from './Pages/Preview';
 import NavBar from './components/Navbar/NavBar';
 import List from './Pages/List';
 import Blog from './Pages/Blog';
-import BlogProvider from './context/BlogContext';
 import UpdateBlog from './Pages/UpdateBlog';
 import { useBlog } from './context/BlogContext';
-import axios from 'axios';
+
 import UpdatePreview from './Pages/UpdatePreview';
 export default function App() {
 
-  const {handleBlogs,allBlogs,handleData,data,getallblogs}= useBlog()
+  const {allBlogs,getallblogs}= useBlog()
  
-  useEffect(() => {
    
-    getallblogs();
-
-  }, []); 
  
   useEffect(() => {
     if (allBlogs.length === 0) {
-      console.log("i am length 0")
+
       getallblogs(); 
     }
   }, [allBlogs])
 
-  const handleReload = ({children})=>{
-   if(allBlogs.length===0){
-    
-     return <Navigate to ="/"/>
-   }
-   console.log("handelreload")
-   return children;
-
-  }
+ 
 
 
 
