@@ -9,9 +9,9 @@ const EditorTab = () => {
      
     const [storage, setStorage] = useState(title)
 
-    const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
+    let title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
 
-    const initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
+    let initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
      const {updateBlog} = useBlog()
 
      const [isOpen, setIsOpen] = React.useState(false);
