@@ -1,18 +1,21 @@
 import React, { useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
-import "./Editor.css"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios"
-const EditorTab = () => {
+import { useBlog } from '../context/BlogContext';
+const UpdateBlog = () => {
+ const {id}= useParams()
+ const {getSingleBlog,allBlogs,updateBlog}=useBlog();
+ console.log("i return id and allblogs",id,allBlogs)
+ const blog = getSingleBlog(id)
+         console.log("i return blog",blog)
     const navigate = useNavigate()
-    if(!localStorage.getItem("title")){
-        localStorage.setItem("title", JSON.stringify(false))
-    }
-     
-    const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
-    const [storage, setStorage] = useState(title)
+    let initialHeader = JSON.parse(localStorage.getItem(`${id} title`))?JSON.parse(localStorage.getItem(`${id} title`)):blog.title
+    let initialDescription =  JSON.parse(localStorage.getItem(id))? JSON.parse(localStorage.getItem(id)):blog.description
+    // const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
+    const [storage, setStorage] = useState(initialHeader)
 
-    const initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
+    // const initialVal = localStorage.getItem("blog") ? JSON.parse(localStorage.getItem("blog")) : "hare krishna"
 
     const handlepreview = async () => {
         handleSave()
@@ -21,17 +24,17 @@ const EditorTab = () => {
     }
 
     const handleSave = () => {
-        localStorage.setItem("blog", JSON.stringify(editorRef.current.getContent()))
-        localStorage.setItem("title", JSON.stringify(storage))
+        localStorage.setItem(id, JSON.stringify(editorRef.current.getContent()))
+        localStorage.setItem(`${id} title`, JSON.stringify(storage))
     }
 
     const handlePublish = async()=>{
          handleSave();
-         const blog = JSON.parse(localStorage.getItem("blog"))
-         const header = JSON.parse(localStorage.getItem("title"))
-         const response = await axios.post("http://localhost:4000/api/v1/createblog",{title:header,description:blog})
-         console.log(response)
-         
+         const blog = JSON.parse(localStorage.getItem(id))
+         const header = JSON.parse(localStorage.getItem(`${id} title`))
+         const response = await axios.put(`http://localhost:4000/api/v1/getblog/${id}`,{title:header,description:blog,createdAt:Date.now()})
+         console.log("i am updated blog",response.data)
+         updateBlog(response.data)
     }
 
     const handleChange = (e) => setStorage(e.target.value)
@@ -42,6 +45,8 @@ const EditorTab = () => {
     return (
         <div className="editor-container max-w-5xl    "
         >
+        {allBlogs.length===0?<div>Loading</div>:
+        <div>
             <div className='title flex flex-col items-center my-1 font-mono '>
                 <h1 className='flex w-24 text-4xl mb-2'>Title</h1>
             </div>
@@ -72,7 +77,7 @@ const EditorTab = () => {
                         ],
                         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                     }}
-                    initialValue={initialVal}
+                    initialValue={initialDescription}
                 />
             </div>
             <div className='flex w-full max-w-3xl justify-between px-10  mt-5'>
@@ -83,9 +88,10 @@ const EditorTab = () => {
             </div>
 
 
-
+</div>
+}
         </div>
     )
 }
 
-export default EditorTab
+export default UpdateBlog
