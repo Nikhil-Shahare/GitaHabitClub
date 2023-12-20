@@ -3,7 +3,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios"
 import { useBlog } from '../context/BlogContext';
-import Modal from "react-modal"
+
 const UpdateBlog = () => {
  const {id}= useParams()
  const {getSingleBlog,allBlogs,updateBlog}=useBlog();
