@@ -95,6 +95,7 @@ const handleDelete = async()=>{
         <div className='blog rounded-lg bg-white  max-w-3xl p-2 mx-2' dangerouslySetInnerHTML={{ __html: blog.description }}/>
 
     </div>
+    //completed
   )
 }
 
