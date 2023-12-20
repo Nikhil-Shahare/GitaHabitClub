@@ -10,6 +10,7 @@ import BlogProvider from './context/BlogContext';
 import UpdateBlog from './Pages/UpdateBlog';
 import { useBlog } from './context/BlogContext';
 import axios from 'axios';
+import UpdatePreview from './Pages/UpdatePreview';
 export default function App() {
 
   const {handleBlogs,allBlogs,handleData,data,getallblogs}= useBlog()
@@ -51,6 +52,10 @@ export default function App() {
           <Route
             path='/preview'
             element={allBlogs.length === 0 ? <Navigate to="/" /> : <Preview />}
+          />
+          <Route
+            path='/preview/:id'
+            element={allBlogs.length === 0 ? <Navigate to="/" /> : <UpdatePreview />}
           />
           <Route
             path='/list'

@@ -15,13 +15,11 @@ const BlogProvider = ({ children }) => {
  const getallblogs = async() =>{
   try {
       
-    console.log("get blogs ran out")
-    console.log("i am allblog out",allBlogs)
-    console.log(" i am data out",data)
+  
     if(allBlogs.length===0){
       const res = await axios.get("http://localhost:4000/api/v1/getallblogs");
       setAllBlogs(res.data.response);
-      console.log("i am all blogs in",res.data.response)
+    
       await handleData(res.data.response);
     }
 
@@ -43,27 +41,32 @@ const handleBlogs = (data) => {
 const handleData = async(value)=>{
   const  response  = await textConverter(value)
   setData(response);
-  console.log("i am data in",data)
+  
 
 }
 
 
 
 const updateBlog = (data) => {
+  console.log("iam data.id",data._id)
    const updatedBlogs = allBlogs.map((blog)=>{
-    if(data._id===blog.id){
+    console.log("i am blog.id", blog._id )
+    if(data._id===blog._id){
       console.log(`i compared ${data._id} with blog.id`)
         return{...blog,...data}
     }
     return blog;
    })
+   handleData(updatedBlogs);
    setAllBlogs(updatedBlogs);
+
 };
 
 const deleteBlog = (data) => {
     const updatedBlogs = allBlogs.filter(blog=>blog._id!==data._id)
-
+     handleData(updatedBlogs)
     setAllBlogs(updatedBlogs);
+
 };
 
 const getSingleBlog =(id)=>{
