@@ -4,10 +4,7 @@ import "./Editor.css"
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 const EditorTab = () => {
-    const navigate = useNavigate()
-    if(!localStorage.getItem("title")){
-        localStorage.setItem("title", JSON.stringify(false))
-    }
+    const navigate = useNavigate() 
      
     const title =  localStorage.getItem("title") ? JSON.parse(localStorage.getItem("title")) : "hare krishna"
     const [storage, setStorage] = useState(title)
